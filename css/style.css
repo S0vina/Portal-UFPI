@@ -1,0 +1,40 @@
+.schedule-grid {
+  background: white;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Crucial para bordas finas */
+  table-layout: fixed; /* Garante que todas as colunas tenham o mesmo tamanho */
+}
+
+td {
+  font-size: 0.8rem;
+  text-align: center;
+  height: 50px;
+  border: 1px solid;
+  transition: background 0.3 ease;
+  background-color: rgb(214, 214, 214);
+}
+
+td:first-child {
+  border: none;
+  background-color: rgb(149, 150, 151);
+  color: brown;
+}
+
+td .ocupada {
+}
+
+td .ocupada:hover {
+}
+
+.schedule-grid th {
+  height: 50px;
+  width: 50px;
+}
+
+#grid-body {
+}
