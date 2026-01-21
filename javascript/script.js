@@ -41,9 +41,16 @@ const bancoDados = {
   ],
 };
 
+const turnoHorario = {
+  M: { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5 },
+  T: { 1: 6, 2: 7, 3: 8, 4: 9, 5: 10, 6: 11 },
+  N: { 1: 12, 2: 13, 3: 14, 4: 15 },
+};
+
 function gerarGrade() {
   const tbody = document.getElementById("grid-body");
   const horas = [
+    "06:00",
     "07:00",
     "08:00",
     "09:00",
@@ -83,7 +90,7 @@ function gerarGrade() {
 }
 
 function decodificaHorario(horario) {
-  const regex = /(\d+)([MTN])(d+)/;
+  const regex = /(\d+)([MTN])(\d+)/;
   const match = horario.match(regex);
 
   if (!match) {
@@ -94,28 +101,51 @@ function decodificaHorario(horario) {
 
   const turno = match[2];
 
-  const hora = match[3].split("");
+  const horas = match[3].split("");
 
   let posicao = [];
 
-  dias.forEach((dias) => {
-    hora.forEach((hora) => {
+  dias.forEach((dia) => {
+    horas.forEach((hora) => {
+      let indexX = dia - 1;
+      let indexY = turnoHorario[turno][hora]; // Define com o turno e hora, o numero da linha na tabela
+
       posicao.push({
-        coluna: dias - 1,
-        linha: [turno, hora],
+        coluna: indexX,
+        linha: indexY,
       });
     });
   });
 
-  return posicao;
+  return posicao; // retorna um dict com o x e y da materia
 }
 
-function desenhaMateria(posicao) {
-  const id = `cell-${posicao[0]}-${posicao[1]}`;
-  const celula = document.getElementById(id);
-  if (celula) {
-    celula.style.background = "black";
-  } else console.log("nao achou celula");
+function desenhaMateria(posicao, nome) {
+  posicao.forEach((posicoes) => {
+    const id = `cell-${posicoes.coluna}-${posicoes.linha}`;
+    const celula = document.getElementById(id);
+    if (celula) {
+      celula.style.background = "green";
+      celula.textContent = nome;
+      return true;
+    } else {
+      console.log("Deu merda");
+      return false;
+    }
+  });
+}
+
+function apagaMateria(posicao) {
+  posicao.forEach((posicoes) => {
+    const id = `cell-${posicoes.coluna}-${posicoes.linha}`;
+    const celula = document.getElementById(id);
+    if (celula) {
+      celula.innerText = "";
+      celula.style.backgroundColor = "";
+      celula.classList.remove("celula-ocupada");
+      celula.removeAttribute("data-materia-nome");
+    }
+  });
 }
 
 function carregaListaMaterias(curso) {
@@ -139,15 +169,28 @@ function carregaListaMaterias(curso) {
 }
 
 function toggleMateria() {
+  // Pegar os dados da matéria clicada
+  const idMateria = this.dataset.id;
+  const cursoAtual = document.getElementById("curso-select").value;
+
+  console.log("Curso selecionado no HTML:", cursoAtual);
+  console.log("Cursos disponíveis no JS:", Object.keys(bancoDados));
+
+  // Busca a matéria pelo ID, independente da posição no array
+  const info = bancoDados[cursoAtual].find((m) => m.id == idMateria);
+
   const marcados = document.querySelectorAll(".checkbox-materia:checked");
+
+  const posicao = decodificaHorario(info.horario);
 
   if (this.checked) {
     const idMateria = this.dataset.id;
 
-    const info = bancoDados[curso][idMateria - 1];
+    const sucesso = desenhaMateria(posicao, info.nome);
 
     console.log("Regex da materia carregado:" + info.horario);
-    desenhaMateria(decodificaHorario(info.horario));
+  } else {
+    apagaMateria(posicao);
   }
 
   console.log("Selecionados agora:", marcados.length);
