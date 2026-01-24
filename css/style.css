@@ -79,3 +79,79 @@ td .ocupada:hover {
 .conflito-ativo {
   animation: piscar 910ms infinite;
 }
+
+/* Item da Matéria Individual */
+.item-materia {
+  background: #fff;
+  border: 1px solid #fdfdfd;
+  padding: 2px;
+  transition: 0.2s;
+}
+
+.item-materia:hover {
+  background-color: #f0f7ff;
+  border-color: #023e8a;
+}
+
+.item-materia label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.materia-detalhes {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.materia-detalhes .nome {
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.materia-detalhes .horario {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.periodo-header {
+  color: #f3eeee;
+  background-color: #3b4877;
+  padding: 3px 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.periodo-header:hover {
+  color: #f3eeee;
+  background-color: #219612;
+}
+.seta-icon {
+  color: hsl(0, 0%, 96%);
+  transition: 0.2s;
+  font-style: normal;
+}
+
+.seta-icon:hover {
+  color: #3b4877;
+}
+
+.periodo-header.fechado .seta-icon {
+  transform: rotate(-90deg);
+}
+
+/* Contêiner das matérias */
+.periodo-corpo {
+  padding: 1px 0;
+  /* block se quiser comecar aberto (comeca fechado por padrao */
+  display: none;
+  transition: 0.2ms;
+}

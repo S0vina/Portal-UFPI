@@ -114,7 +114,7 @@ function decodificaHorario(horario) {
 }
 
 function desenhaMateria(posicao, nomeMateria, cor, turma) {
-  const codigoMateria = `${nomeMateria} (T${turma})`;
+  const codigoMateria = `${nomeMateria} (T-${turma})`;
 
   posicao.forEach((posicoes) => {
     const id = `cell-${posicoes.coluna}-${posicoes.linha}`;
@@ -134,7 +134,6 @@ function desenhaMateria(posicao, nomeMateria, cor, turma) {
         celula.innerHTML = `<span>${codigoMateria}</span>`;
         celula.classList.add("ocupada");
         celulasOcupadas[id] = codigoMateria;
-        console.log(celulasOcupadas[id]);
       }
     } else {
       console.log("Deu merda");
@@ -205,7 +204,7 @@ function atualizarGrade() {
     const cor = coresAtribuidas[materia.nome];
 
     // Chamamos a sua função de desenho original
-    desenhaMateria(slots, materia.nome, cor);
+    desenhaMateria(slots, materia.nome, cor, materia.turma);
   });
 }
 
@@ -240,7 +239,7 @@ function carregarCursoEscolhido() {
   if (cursoAtual) {
     carregaListaMaterias(cursoAtual);
     console.log("Deu certo");
-  }
+  } else console.log("Deu errado");
 }
 
 function carregaListaMaterias(curso) {
@@ -249,19 +248,59 @@ function carregaListaMaterias(curso) {
 
   const materias = bancoDados[curso];
 
-  materias.forEach((materia) => {
-    const div = document.createElement("div");
-    div.className = "item-materia";
-    div.innerHTML = ` 
-    <label>
-      <input type="checkbox" data-id="${materia.id}" class="checkbox-materia"
-      onchange="toggleMateria(event)">
-      <span>${materia.nome}</span>
-      <small>${materia.horario} - ${materia.professor}</small>
-    </label>`;
+  if (!materias) {
+    console.log("DEU ERRADO");
+    return;
+  }
 
-    listaContainer.appendChild(div);
-    // No seu loop que cria a lista de matérias:
+  const materiasPorPeriodo = {};
+
+  materias.forEach((materia) => {
+    const p = materia.periodo;
+    if (!materiasPorPeriodo[p]) {
+      materiasPorPeriodo[p] = [];
+    }
+    materiasPorPeriodo[p].push(materia);
+  });
+
+  const periodosOrdenados = Object.keys(materiasPorPeriodo).sort(
+    (a, b) => a - b,
+  );
+
+  periodosOrdenados.forEach((periodo) => {
+    const header = document.createElement("div");
+    header.className = "periodo-header";
+    header.innerHTML = `
+        <span>${periodo}º Período</span>
+        <i class="seta-icon">▼</i>
+    `;
+
+    const sanfona = document.createElement("div");
+    sanfona.className = "periodo-corpo"; // Parte que sofrera o efeito sanfona
+
+    materiasPorPeriodo[periodo].forEach((materia) => {
+      const div = document.createElement("div");
+      div.className = "item-materia";
+      div.innerHTML = ` 
+      <label>
+        <input type="checkbox" data-id="${materia.id}" class="checkbox-materia"
+        onchange="toggleMateria(event)">
+        <span>${materia.nome}</span>
+        <small> ${materia.horario}</small>
+      </label>`;
+
+      sanfona.appendChild(div);
+    });
+
+    // Adicionar o evento de clique para abrir/fechar
+    header.addEventListener("click", () => {
+      const estaAberto = sanfona.style.display !== "none";
+      sanfona.style.display = estaAberto ? "none" : "block";
+      header.classList.toggle("fechado", estaAberto);
+    });
+
+    listaContainer.append(header);
+    listaContainer.append(sanfona);
   });
 }
 
@@ -301,12 +340,15 @@ function toggleMateria(event) {
 
   if (checkbox.checked) {
     // Nao permite selecionar duas turmas da mesma materia
-    const turmaConflitante = materiasAtivas.find((m) => m.nome === info.nome);
-    if (turmaConflitante) {
+    //const turmaConflitante = materiasAtivas.find((m) => m.nome === info.nome);
+    /*if (turmaConflitante) {
       alert(`VOCÊ JÁ SELECIONOU A ${info.nome} (T${turmaConflitante.turma})`);
       checkbox.checked = false;
+      console.log(turmaConflitante);
       return;
-    }
+    }*/
+
+    // Nao ta funcionando correto, entao tirei a verificao acima
 
     // Adiciona a matéria à lista de ativas se não estiver lá
     if (!materiasAtivas.find((m) => m.id == idCompleto)) {

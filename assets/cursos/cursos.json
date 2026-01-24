@@ -1,54 +1,97 @@
 {
-  "Arquitetura e Urbanismo": [],
-  "Ciência da Computacação": [
+  "Arquitetura e Urbanismo": [
+    {
+      "id": "DCO0044",
+      "nome": "DESENHO ARQUITETONICO",
+      "turma": "01",
+      "horario": "2T6 4T56 24N1",
+      "periodo": 1
+    },
+    {
+      "id": "DCO0066",
+      "nome": "DESENHO DE OBSERVACAO",
+      "turma": "01",
+      "horario": "2M3456 4M6 4T1",
+      "periodo": 1
+    },
+    {
+      "id": "DCO0036",
+      "nome": "DESENHO TECNICO",
+      "turma": "01",
+      "horario": "3M56 6M3456",
+      "periodo": 1
+    }
+  ],
+  "Ciência da Computação": [
     {
       "id": "CCN032-T01",
       "nome": "CÁLCULO DIFERENCIAL E INTEGRAL",
       "turma": "01",
       "horario": "24T34",
-      "Periodo": 1
+      "periodo": 1
+    },
+    {
+      "id": "CCHL002",
+      "nome": "INGLÊS TÉCNICO E CIENTÍFICO",
+      "turma": "01",
+      "horario": "24M34",
+      "periodo": 1
     },
     {
       "id": "CCN021-T01",
       "nome": "INFORMÁTICA E SOCIEDADE",
       "turma": "01",
       "horario": "24T56",
-      "Periodo": 1
+      "periodo": 1
     },
     {
       "id": "CCN019-T01",
       "nome": "INTRODUÇÃO A LÓGICA",
       "turma": "01",
-      "horario": "24T34",
-      "Periodo": 1
+      "horario": "35M34",
+      "periodo": 1
     },
     {
       "id": "DFI0254-T01",
       "nome": "INTRODUÇÃO A METODOLOGIA CIENTÍFICA",
       "turma": "01",
       "horario": "24M56",
-      "Periodo": 1
+      "periodo": 1
     },
     {
       "id": "CCN026-T01",
       "nome": "PROGRAMAÇÃO ESTRUTURADA",
       "turma": "01",
       "horario": "35M56",
-      "Periodo": 1
+      "periodo": 1
     },
     {
       "id": "CCN026-T02",
       "nome": "PROGRAMAÇÃO ESTRUTURADA",
       "turma": "02",
       "horario": "3M56 5T56",
-      "Periodo": 1
+      "periodo": 1
     },
     {
       "id": "CCN020-T01",
       "nome": "SEMINÁRIOS DE INTRODUÇÃO AO CURSO",
       "turma": "01",
       "horario": "5T34",
-      "Periodo": 1
+      "periodo": 1
+    },
+    {
+      "id": "CCN029-T01",
+      "nome": "CIRCUITOS DIGITAIS",
+      "turma": "01",
+      "horario": "35M56",
+      "periodo": 2
+    },
+    {
+      "id": "CCN022-T01",
+      "nome": "ESTRUTURA DE DADOS",
+      "turma": "01",
+      "horario": "35M34",
+      "periodo": 2
     }
   ]
 }
