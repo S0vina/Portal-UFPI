@@ -1,62 +1,10 @@
 // Lista de materias de computacao para teste de desenho das materias
-// JSON com
-const bancoDados = {
-  "Ciência da Computação": [
-    {
-      id: 1,
-      nome: "Cálculo Diferencial e Integral I",
-      horario: "24T3456",
-      professor: "Paulo Alexandre",
-    },
-    {
-      id: 2,
-      nome: "Informática e Sociedade",
-      horario: "24T56",
-      professor: "Weslley Emmanuel",
-    },
-    {
-      id: 3,
-      nome: "Inglês Técnico e Científico",
-      horario: "24M34",
-      professor: "Francisco Wellington",
-    },
-    {
-      id: 4,
-      nome: "Introdução à Lógica",
-      horario: "35M56",
-      professor: "Kelson Romulo",
-    },
-    {
-      id: 5,
-      nome: "Introdução à Metodologia Científica",
-      horario: "24M67",
-      professor: "Atila Brandão",
-    },
-    {
-      id: 6,
-      nome: "Programação Estruturada",
-      horario: "35M56",
-      professor: "Rosianni de Oliveira",
-    },
-    {
-      id: 7,
-      nome: "Matematica Discreta",
-      horario: "24N12",
-      professor: "Josias",
-    },
-    {
-      id: 8,
-      nome: "Progamacao Estruturada",
-      horario: "24T56",
-      professor: "Pedrao",
-    },
-  ],
-};
-// prettier-ignore
+let bancoDados = {};
+
 const turnoHorario = {
-  M: { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5 , 7: 6},
+  M: { 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6 },
   T: { 1: 6, 2: 7, 3: 8, 4: 9, 5: 10, 6: 11 },
-  N: { 1: 12, 2: 13, 3: 14, 4: 15 }
+  N: { 1: 12, 2: 13, 3: 14, 4: 15 },
 };
 
 const paletaCores = [
@@ -124,57 +72,68 @@ function gerarGrade() {
 }
 
 function decodificaHorario(horario) {
-  const regex = /(\d+)([MTN])(\d+)/;
-  const match = horario.match(regex);
-
-  if (!match) {
+  if (!horario) {
+    console.log("Leitura nao foi bem sucedida");
     return [];
   }
 
-  const dias = match[1].split("");
+  // Se o horário tiver espaço, quebra em partes e processa cada uma
+  const partes = horario.trim().split(/\s+/);
+  let todosHorarios = [];
 
-  const turno = match[2];
+  const regex = /(\d+)([MTN])(\d+)/;
 
-  const horas = match[3].split("");
+  partes.forEach((parte) => {
+    const match = parte.match(regex);
 
-  let posicao = [];
+    // Verificacao do match do regex
+    if (!match) {
+      console.warn(`Padrão de horário inválido: ${parte}`);
+      return; // Pula esta parte e vai para a próxima
+    }
 
-  dias.forEach((dia) => {
-    horas.forEach((hora) => {
-      let indexX = dia - 1;
-      let indexY = turnoHorario[turno][parseInt([hora])]; // Define com o turno e hora, o numero da linha na tabela
+    const dias = match[1].split("");
+    const turno = match[2];
+    const horas = match[3].split("");
 
-      posicao.push({
-        coluna: indexY,
-        linha: indexX,
+    dias.forEach((dia) => {
+      horas.forEach((hora) => {
+        // Traducao para as coordenadas da tabela
+        let indexX = parseInt(dia) - 1;
+        let indexY = turnoHorario[turno][parseInt([hora])]; // Define com o turno e hora, o numero da linha na tabela
+
+        todosHorarios.push({
+          coluna: indexY,
+          linha: indexX,
+        });
       });
     });
   });
 
-  return posicao; // retorna um dict com o x e y da materia
+  return todosHorarios; // retorna um dict com o x e y da materia
 }
 
-function desenhaMateria(posicao, nome, cor) {
+function desenhaMateria(posicao, nomeMateria, cor, turma) {
+  const codigoMateria = `${nomeMateria} (T${turma})`;
+
   posicao.forEach((posicoes) => {
     const id = `cell-${posicoes.coluna}-${posicoes.linha}`;
     const celula = document.getElementById(id);
+
     if (celula) {
       const materiaExistente = celulasOcupadas[id];
       console.log(materiaExistente);
-      if (materiaExistente && materiaExistente !== nome) {
-        exibirConflito(celula, materiaExistente, nome);
+
+      if (materiaExistente && materiaExistente !== nomeMateria) {
+        exibirConflito(celula, materiaExistente, nomeMateria);
         console.log("cheguei aqui");
-        // } else if (celula.classList.contains("conflito-ativo")) {
-        // return;
       } else {
-        // Se a célula já estava com conflito mas agora estou sozinho nela
-        // (Isso acontece durante o redesenho após desmarcar uma)
         celula.classList.remove("conflito-ativo");
 
         celula.style.backgroundColor = cor;
-        celula.innerHTML = `<span>${nome}</span>`;
+        celula.innerHTML = `<span>${codigoMateria}</span>`;
         celula.classList.add("ocupada");
-        celulasOcupadas[id] = nome;
+        celulasOcupadas[id] = codigoMateria;
         console.log(celulasOcupadas[id]);
       }
     } else {
@@ -184,15 +143,18 @@ function desenhaMateria(posicao, nome, cor) {
 }
 
 function corMateriaAtual(indice) {
-  cor = paletaCores[indiceCor];
+  cor = paletaCores[indice];
   indiceCor++;
   return cor;
 }
 
 function apagaMateria(posicao) {
+  const codigoMateria = `${nomeMateria} (T${turma})`;
+
   posicao.forEach((posicoes) => {
     const id = `cell-${posicoes.coluna}-${posicoes.linha}`;
     const celula = document.getElementById(id);
+
     if (celula) {
       celula.innerText = "";
       celula.style.backgroundColor = "";
@@ -252,16 +214,16 @@ function limparGradeVisualmente() {
   const celulas = document.querySelectorAll('[id^="cell-"]');
 
   celulas.forEach((celula) => {
-    // 1. Remove estilos inline (background, cores, etc)
+    // Remove estilos inline
     celula.style.backgroundColor = "";
     celula.style.color = "";
     celula.style.fontWeight = "";
     celula.style.fontSize = "";
 
-    // 2. Remove o conteúdo interno (o HTML do aviso de conflito)
+    // Remove o conteúdo interno
     celula.innerHTML = "";
 
-    // 3. REMOVE AS CLASSES (Isso é o mais importante!)
+    // Remove as classes da materia nao mais existente
     celula.classList.remove("ocupada", "conflito-ativo");
   });
 }
@@ -304,45 +266,67 @@ function carregaListaMaterias(curso) {
 }
 
 function resetarTudo() {
-  // 1. Limpa a lista de matérias que o JS estava guardando
+  // Limpa a lista de matérias que o JS estava guardando
   materiasAtivas = [];
 
-  // 2. Limpa o controle de ocupação (conflitos)
+  // Limpa o controle de ocupação (conflitos)
   celulasOcupadas = {};
 
-  // 3. Limpa todas as cores e nomes da grade visual (HTML)
+  // Limpa todas as cores e nomes da grade visual (HTML)
   limparGradeVisualmente();
 
   console.log("Grade e memória resetadas para o novo curso.");
 }
 
+// Função para buscar os dados
+async function carregarDadosIniciais() {
+  try {
+    const resposta = await fetch("../assets/cursos/cursos.json");
+    bancoDados = await resposta.json();
+    console.log("Banco de dados da UFPI carregado!");
+
+    // Só depois de carregar os dados
+    gerarGrade();
+  } catch (erro) {
+    console.error("Erro ao carregar o JSON:", erro);
+  }
+}
+
 function toggleMateria(event) {
   const checkbox = event.target;
+  const idCompleto = checkbox.dataset.id;
+
   const cursoAtual = document.getElementById("curso-select").value;
-  const idMateria = checkbox.dataset.id;
-  const info = bancoDados[cursoAtual].find((m) => m.id == idMateria);
+  const info = bancoDados[cursoAtual].find((m) => m.id == idCompleto);
 
   if (checkbox.checked) {
+    // Nao permite selecionar duas turmas da mesma materia
+    const turmaConflitante = materiasAtivas.find((m) => m.nome === info.nome);
+    if (turmaConflitante) {
+      alert(`VOCÊ JÁ SELECIONOU A ${info.nome} (T${turmaConflitante.turma})`);
+      checkbox.checked = false;
+      return;
+    }
+
     // Adiciona a matéria à lista de ativas se não estiver lá
-    if (!materiasAtivas.find((m) => m.id == idMateria)) {
+    if (!materiasAtivas.find((m) => m.id == idCompleto)) {
       materiasAtivas.push(info);
     }
   } else {
     // Remove a matéria da lista de ativas
-    materiasAtivas = materiasAtivas.filter((m) => m.id != idMateria);
+    materiasAtivas = materiasAtivas.filter((m) => m.id != idCompleto);
   }
 
-  // O toque de mágica: redesenha tudo baseado na nova lista
+  // redesenha tudo baseado na nova lista
   atualizarGrade();
 }
 
-// Gera a tabela dos horarios
-gerarGrade();
+carregarDadosIniciais();
 
-// 2. Monitora a mudança do curso
+// Monitora a mudança do curso
 const seletor = document.getElementById("curso-select");
 seletor.addEventListener("change", carregarCursoEscolhido);
-// 3. Monitora cliques em checkboxes (mesmo os que ainda não foram criados)
+// Monitora cliques em checkboxes (mesmo os que ainda não foram criados)
 document
   .querySelector(".lista-materias")
   .addEventListener("change", function (event) {

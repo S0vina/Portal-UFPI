@@ -1,0 +1,54 @@
+{
+  "Arquitetura e Urbanismo": [],
+  "Ciência da Computacação": [
+    {
+      "id": "CCN032-T01",
+      "nome": "CÁLCULO DIFERENCIAL E INTEGRAL",
+      "turma": "01",
+      "horario": "24T34",
+      "Periodo": 1
+    },
+    {
+      "id": "CCN021-T01",
+      "nome": "INFORMÁTICA E SOCIEDADE",
+      "turma": "01",
+      "horario": "24T56",
+      "Periodo": 1
+    },
+    {
+      "id": "CCN019-T01",
+      "nome": "INTRODUÇÃO A LÓGICA",
+      "turma": "01",
+      "horario": "24T34",
+      "Periodo": 1
+    },
+    {
+      "id": "DFI0254-T01",
+      "nome": "INTRODUÇÃO A METODOLOGIA CIENTÍFICA",
+      "turma": "01",
+      "horario": "24M56",
+      "Periodo": 1
+    },
+    {
+      "id": "CCN026-T01",
+      "nome": "PROGRAMAÇÃO ESTRUTURADA",
+      "turma": "01",
+      "horario": "35M56",
+      "Periodo": 1
+    },
+    {
+      "id": "CCN026-T02",
+      "nome": "PROGRAMAÇÃO ESTRUTURADA",
+      "turma": "02",
+      "horario": "3M56 5T56",
+      "Periodo": 1
+    },
+    {
+      "id": "CCN020-T01",
+      "nome": "SEMINÁRIOS DE INTRODUÇÃO AO CURSO",
+      "turma": "01",
+      "horario": "5T34",
+      "Periodo": 1
+    }
+  ]
+}
