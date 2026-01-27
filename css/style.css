@@ -150,19 +150,6 @@ td .ocupada:hover {
   color: #f3eeee;
   background-color: #219612;
 }
-.seta-icon {
-  display: inline-block;
-  transition: transform 0.3s ease;
-  transform: rotate(0deg);
-}
-
-.seta-icon:hover {
-  color: #3b4877;
-}
-
-.periodo-header.fechado .seta-icon {
-  transform: rotate(-90deg);
-}
 
 /* Contêiner das matérias */
 .periodo-corpo {
@@ -182,6 +169,20 @@ td .ocupada:hover {
   padding-bottom: 0;
 }
 
+.seta-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  transform: rotate(0deg);
+}
+
+.seta-icon:hover {
+  color: #3b4877;
+}
+
 .periodo-corpo.fechado .seta-icon {
   transform: rotate(-90deg); /* Seta para a direita */
+}
+
+.periodo-header.fechado .seta-icon {
+  transform: rotate(-90deg);
 }
