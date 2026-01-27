@@ -9,6 +9,11 @@
   margin-left: 10px;
 }
 
+.filtra-materias {
+  display: flex;
+  margin-top: 2px;
+}
+
 .schedule-grid {
   background: white;
   overflow-x: auto;
@@ -146,9 +151,9 @@ td .ocupada:hover {
   background-color: #219612;
 }
 .seta-icon {
-  color: hsl(0, 0%, 96%);
-  transition: 0.2s;
-  font-style: normal;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  transform: rotate(0deg);
 }
 
 .seta-icon:hover {
@@ -161,8 +166,22 @@ td .ocupada:hover {
 
 /* Contêiner das matérias */
 .periodo-corpo {
-  padding: 1px 0;
-  /* block se quiser comecar aberto (comeca fechado por padrao */
-  display: none;
-  transition: 0.2ms;
+  display: block;
+  max-height: 1000px; /* Um valor grande o suficiente */
+  opacity: 1;
+  overflow: hidden;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.periodo-corpo.escondido {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.periodo-corpo.fechado .seta-icon {
+  transform: rotate(-90deg); /* Seta para a direita */
 }

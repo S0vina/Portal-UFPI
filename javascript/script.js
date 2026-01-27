@@ -268,14 +268,20 @@ function carregaListaMaterias(curso) {
 
   periodosOrdenados.forEach((periodo) => {
     const header = document.createElement("div");
-    header.className = "periodo-header";
+    header.className = "periodo-header fechado";
     header.innerHTML = `
         <span>${periodo}º Período</span>
         <i class="seta-icon">▼</i>
     `;
 
-    const sanfona = document.createElement("div");
-    sanfona.className = "periodo-corpo"; // Parte que sofrera o efeito sanfona
+    const corpo = document.createElement("div");
+    corpo.className = "periodo-corpo escondido"; // Parte que sofrera o efeito sanfona
+
+    // Adicionar o evento de clique para abrir/fechar
+    header.addEventListener("click", () => {
+      corpo.classList.toggle("escondido");
+      header.classList.toggle("fechado");
+    });
 
     materiasPorPeriodo[periodo].forEach((materia) => {
       const div = document.createElement("div");
@@ -284,22 +290,15 @@ function carregaListaMaterias(curso) {
       <label>
         <input type="checkbox" data-id="${materia.id}" class="checkbox-materia"
         onchange="toggleMateria(event)">
-        <span>${materia.nome}</span>
-        <small> ${materia.horario}</small>
+        <span>${materia.nome} - </span>
+        <small> -- ${materia.horario}</small>
       </label>`;
 
-      sanfona.appendChild(div);
-    });
-
-    // Adicionar o evento de clique para abrir/fechar
-    header.addEventListener("click", () => {
-      const estaAberto = sanfona.style.display !== "none";
-      sanfona.style.display = estaAberto ? "none" : "block";
-      header.classList.toggle("fechado", estaAberto);
+      corpo.appendChild(div);
     });
 
     listaContainer.append(header);
-    listaContainer.append(sanfona);
+    listaContainer.append(corpo);
   });
 }
 
