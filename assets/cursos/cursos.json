@@ -1,4 +1,5 @@
 {
+  "Adminstração": [],
   "Arquitetura e Urbanismo": [
     {
       "id": "DCO0044",
@@ -22,6 +23,7 @@
       "periodo": 1
     }
   ],
+  "Ciência da Contabilidade": [],
   "Ciência da Computação": [
     {
       "id": "CCN032-T01",
@@ -93,5 +95,7 @@
       "horario": "35M34",
       "periodo": 2
     }
-  ]
+  ],
+  "Matática": [],
+  "Zootecnia": []
 }
