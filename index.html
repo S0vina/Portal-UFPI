@@ -3,142 +3,134 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cronograma - UFPI</title>
+    <title>Portal UFPI 2026</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="app-container">
-      <!-- Modal de Seleção de Cursos -->
-      <div id="modal-cursos" class="modal-sobreposicao" style="display: none">
-        <div class="modal-header">
-          <div class="modal-header-top">
-            <input
-              type="text"
-              id="busca-curso-input"
-              placeholder="Pesquisar curso..."
-              autofocus
-            />
-            <button onclick="fecharModalCursos()">✕</button>
-          </div>
-          <!-- Lista de cursos que se organizam apos apertar no curso-atual-nome -->
-          <div id="lista-cursos-full" class="grid-cursos"></div>
+    <!-- TELA SOBREPOSTA PARA SELECAO DE CURSOS -->
+    <div id="modal-cursos" class="modal-sobreposicao" style="display: none">
+      <div class="modal-header">
+        <div class="modal-header-top">
+          <input
+            type="text"
+            id="busca-curso-input"
+            placeholder="Pesquisar curso..."
+            autofocus
+          />
+          <button onclick="fecharModalCursos()">✕</button>
         </div>
-      </div>
-
-      <!-- Layout Principal -->
-      <div class="main-layout">
-        <!-- Barra Lateral (Sidebar) -->
-        <aside class="sidebar">
-          <!-- Navegação de Módulos -->
-          <nav class="sidebar-nav">
-            <button
-              onclick="mudarModulo('cronograma')"
-              id="btn-cronograma"
-              class="nav-item active"
-            >
-              <i>📅</i> <span>Grade</span>
-            </button>
-            <button
-              onclick="mudarModulo('servicos')"
-              id="btn-servicos"
-              class="nav-item"
-            >
-              <i>🔗</i> <span>Serviços</span>
-            </button>
-          </nav>
-
-          <!-- Módulo Cronograma -->
-          <div
-            id="sidebar-cronograma"
-            class="modulo-content"
-            style="display: none"
-          >
-            <div class="seletor-curso-gatilho" onclick="abrirModalCursos()">
-              <span id="curso-atual-nome">Selecione seu curso...</span>
-            </div>
-
-            <div style="position: relative">
-              <div id="lista-padrao" class="lista-materias"></div>
-              <div
-                id="resultados-busca"
-                class="overlay-busca"
-                style="display: none"
-              ></div>
-            </div>
-            <div class="busca-container">
-              <input
-                type="text"
-                id="input-busca"
-                placeholder="Pesquisar matéria no curso..."
-              />
-            </div>
-
-            <button class="cleaner" id="cleaner-button">Limpar</button>
-          </div>
-
-          <!-- Módulo Serviços -->
-          <div
-            id="sidebar-servicos"
-            class="modulo-content"
-            style="display: none"
-          >
-            <div class="servicos-lista">
-              <h3>Links Oficiais</h3>
-              <a
-                href="https://sigaa.ufpi.br"
-                target="_blank"
-                class="card-servico"
-                >SIGAA</a
-              >
-              <a href="#" class="card-servico">Calendário Acadêmico 2026</a>
-              <a href="#" class="card-servico">Cardápio do RU</a>
-            </div>
-          </div>
-        </aside>
-
-        <!-- Conteúdo Principal -->
-        <main>
-          <!-- View Cronograma -->
-          <div
-            id="view-cronograma"
-            class="modulo-content"
-            style="display: none"
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Horário</th>
-                  <th>DOM</th>
-                  <th>SEG</th>
-                  <th>TER</th>
-                  <th>QUA</th>
-                  <th>QUI</th>
-                  <th>SEX</th>
-                  <th>SÁB</th>
-                </tr>
-              </thead>
-              <tbody id="corpo-grade"></tbody>
-            </table>
-          </div>
-
-          <!-- View Serviços -->
-          <div id="view-servicos" class="modulo-content" style="display: none">
-            <div class="servicos-lista">
-              <h3>Links Oficiais</h3>
-              <a
-                href="https://sigaa.ufpi.br"
-                target="_blank"
-                class="card-servico"
-                >SIGAA</a
-              >
-              <a href="#" class="card-servico">Calendário Acadêmico 2026</a>
-              <a href="#" class="card-servico">Cardápio do RU</a>
-            </div>
-          </div>
-        </main>
+        <div id="lista-cursos-full" class="grid-cursos"></div>
       </div>
     </div>
 
+    <!-- MAIN DO SITE (TELA INICIAL) -->
+    <main class="app-container">
+      <div id="view-inicio" class="modulo-content">
+        <div class="boas-vindas">
+          <h1>Olá, Aluno! 👋</h1>
+          <p>Bem-vindo ao seu portal</p>
+        </div>
+
+        <!-- DIV CONTAINER DAS FEATURES -->
+        <div class="grid-dashboard">
+          <!-- ICON PARA FEATURE DE CRONOGRAMA -->
+          <div class="card-dashboard" onclick="mudaModulo('cronograma')">
+            <div class="icon">📅</div>
+            <h3>Minha Grade</h3>
+            <p>Organize seus horários de aula para 2026.</p>
+          </div>
+          <!-- ICON PARA IR DIRETO PARA O SIGAA-->
+          <a
+            href="https://sigaa.ufpi.br"
+            target="_blank"
+            class="card-dashboard"
+          >
+            <div class="icon">🎓</div>
+            <h3>SIGAA</h3>
+            <p>Notas e frequências.</p>
+          </a>
+          <!-- ICON PARA CALENDARIO ACADEMICO -->
+          <div class="card-dashboard" onclick="mudaModulo('servicos')">
+            <div class="icon">📌</div>
+            <h3>Calendário</h3>
+            <p>Prazos e feriados.</p>
+          </div>
+          <!-- ICON PARA FEATURES DO RU -->
+          <div class="card-dashboard">
+            <div class="icon">🍱</div>
+            <h3>Restaurante</h3>
+            <p>Cardápio do RU.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUANDO A OPCAO CRONOGRAMA SELECIONADA -->
+      <!-- BOTAO HOME PARA VOLTAR PARA A TELA INICIAL -->
+      <div id="view-cronograma" class="modulo-content" style="display: none">
+        <div class="toolbar-grade">
+          <button class="btn-home" onclick="mudaModulo('inicio')">
+            🏠 Início
+          </button>
+
+          <!-- BOTAO PARA ABRIR A TELA DE SOBREPOSTA DE SELECAO DE CURSOS-->
+          <button onclick="abrirModalCursos()" class="btn-selecionar">
+            Escolha seu curso
+          </button>
+        </div>
+
+        <div id="sidebar-materias"></div>
+
+        <div class="busca-container">
+          <input
+            id="input-busca-materia"
+            type="text"
+            placeholder="Pesquise uma matéria específica..."
+          />
+
+          <div id="container-resultado-busca-materias"></div>
+        </div>
+
+        <!-- GRADE PARA MONTAGEM DO CRONOGRAMA -->
+        <div class="grade-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Horário</th>
+                <th>DOM</th>
+                <th>SEG</th>
+                <th>TER</th>
+                <th>QUA</th>
+                <th>QUI</th>
+                <th>SEX</th>
+                <th>SÁB</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-grade"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DIV PARA AMOSTRAGEM DE SERVICOS-->
+      <div id="view-servicos" class="modulo-content" style="display: none">
+        <button class="btn-home" onclick="mudaModulo('inicio')">
+          🏠 Início
+        </button>
+        <div class="servicos-lista">
+          <h3>Links Oficiais</h3>
+          <a href="https://sigaa.ufpi.br" target="_blank" class="card-servico"
+            >SIGAA</a
+          >
+          <a href="#" class="card-servico">Calendário Acadêmico 2026</a>
+        </div>
+      </div>
+    </main>
+
     <script src="javascript/script.js" defer></script>
+    <footer>
+      <p>
+        &copy; 2026 Portal do Aluno UFPI. Desenvolvido com foco em produtividade
+        acadêmica.
+      </p>
+    </footer>
   </body>
 </html>

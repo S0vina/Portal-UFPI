@@ -1,3 +1,95 @@
+.grid-dashboard {
+  /*background-color: #002d56;*/
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid #004a8d;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-decoration: none; /* Para o link do SIGAA */
+  color: inherit;
+}
+
+.card-dashboard:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #004a8d; /* Azul UFPI */
+}
+
+.card-dashboard .icon {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.card-dashboard:hover .icon {
+  transform: scale(1.1);
+}
+
+.card-dashboard h3 {
+  font-size: 1.25rem;
+  color: #004a8d;
+  margin-bottom: 8px;
+}
+
+.card-dashboard p {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.boas-vindas {
+  text-align: center;
+  padding: 20px 20px;
+  background: linear-gradient(to bottom, #f8fafc, #ffffff);
+  margin-bottom: 20px;
+}
+
+.boas-vindas h1 {
+  font-size: 2.5rem;
+  color: #1e293b;
+  font-weight: 800;
+}
+
+.boas-vindas p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+/* Botão Flutuante de Home dentro das outras telas */
+.btn-home-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #004a8d;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
 .top-bar {
   display: flex;
   align-items: center;
@@ -144,15 +236,76 @@
 }
 
 .busca-container {
-  margin-top: 2px;
-  /*background-color: #023e8a;*/
+  margin-top: 5px;
   display: flex;
+  flex-direction: column;
+
+  align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .busca-container input {
   display: flex;
   width: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+#container-resultado-busca-materias {
+  max-height: 400px; /* Limita a altura para não quebrar o modal */
+  overflow-y: auto; /* Scroll macio se houver muitos resultados */
+  background: #ffffff;
+  border-top: 1px solid #eee;
+  padding: 5px;
+
+  /* Layout em Grid para os resultados parecerem cards pequenos */
+  display: grid;
+  gap: 6px;
+}
+
+#container-resultado-busca-materias:empty {
+  display: none;
+}
+
+.item-materia.item-busca {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.item-materia.item-busca:hover {
+  background: #edf2f7;
+  border-color: #004a8d;
+  transform: translateY(-2px);
+}
+
+.item-materia.item-busca label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Customizando o checkbox para ficar mais moderno */
+.item-materia.item-busca input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #004a8d; /* Cor oficial da UFPI */
+}
+
+.aviso-sem-materias {
+  margin: 5px;
+  margin-bottom: 8px;
+  text-align: center;
+  background-color: #d32f2f;
+  color: #e9ecef;
+  border: 2px dashed white;
+  animation: surgeAviso 0.4s ease;
 }
 
 .overlay-busca {
@@ -188,51 +341,52 @@
 
 table {
   width: 100%;
-  border-collapse: collapse; /* Crucial para bordas finas */
-  table-layout: fixed; /* Garante que todas as colunas tenham o mesmo tamanho */
+  border-collapse: collapse;
+  table-layout: fixed; /* Força as colunas a terem o mesmo tamanho */
+  font-size: 0.85rem; /* Fonte levemente menor */
+  background: white;
 }
 
-td {
-  font-size: 0.8rem;
-  text-align: center;
-  height: 50px;
-  border: 1px solid;
-  transition: background 0.3 ease;
-  background-color: rgb(214, 214, 214);
-}
-
-td:first-child {
-  border: none;
-  background-color: rgb(149, 150, 151);
-  color: brown;
-}
-
-td .ocupada {
+/* Cabeçalho mais fino */
+th {
+  background-color: #004a8d;
   color: white;
-  font-weight: 500;
-  padding: 4px;
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); /* Brilho interno */
+  padding: 8px 4px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
 }
 
-td .ocupada:hover {
-  position: relative;
-  z-index: 10px;
-  filter: brightness(1.1);
-  transform: scale(1.1);
+/* Diminuindo a altura das células de horário */
+td {
+  border: 1px solid #000000;
+  padding: 4px; /* Padding reduzido ao mínimo */
+  height: 35px; /* Altura fixa e baixa para as linhas */
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word; /* Evita que o texto vaze da célula */
+}
+/* Td's dos horarios */
+td:first-child,
+th:first-child {
+  width: 60px;
+  background-color: #f8fafc;
+  font-weight: bold;
+  color: #64748b;
+}
+
+.celula-materia {
+  font-size: 0.75rem;
+  padding: 2px;
+  border-radius: 4px;
+  line-height: 1.1;
+  display: block;
+  height: 100%;
 }
 
 /* Muda o estilo dos horarios de 12:00 e 18:00 */
 .divisorDeTurno td {
   border-top: 2px dashed;
   border-bottom: 2px dashed;
-}
-
-/* "Table Header" ou cabecalho da tabela */
-.schedule-grid th {
-  height: 50px;
-  width: 50px;
 }
 
 .conflito-ativo {
@@ -425,4 +579,19 @@ td .ocupada:hover {
   color: #e0e0e0;
   border-bottom-color: #002d56;
   padding-bottom: 2px;
+}
+
+/* Container com scroll caso a tela seja pequena */
+.grade-wrapper {
+  overflow-x: auto;
+  padding: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+  font-size: 0.85rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 40px;
 }

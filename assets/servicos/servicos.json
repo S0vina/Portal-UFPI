@@ -1,0 +1,20 @@
+[
+  {
+    "nome": "SIGAA",
+    "url": "https://sigaa.ufpi.br",
+    "descricao": "Portal do discente, notas e frequências.",
+    "icone": "🎓"
+  },
+  {
+    "nome": "Calendário 2026",
+    "url": "#",
+    "descricao": "Datas de matrícula, feriados e períodos letivos.",
+    "icone": "📅"
+  },
+  {
+    "nome": "Cardápio RU",
+    "url": "#",
+    "descricao": "Confira o que tem no Restaurante Universitário hoje.",
+    "icone": "🍱"
+  }
+]
