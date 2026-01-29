@@ -89,6 +89,8 @@ function mudaModulo(moduloId) {
     .querySelectorAll(".modulo-content")
     .forEach((div) => (div.style.display = "none"));
 
+  resetarTudo();
+
   const view = document.getElementById(`view-${moduloId}`);
   if (view) view.style.display = "block";
 
@@ -503,6 +505,11 @@ function estaSelecionada(id) {
 function resetarTudo() {
   // Limpa a lista de matérias que o JS estava guardando
   materiasAtivas = [];
+  // Limpa a variavel do curso atual
+  cursoAtualGlobal = "";
+
+  // Reseta a variavel controle das cores
+  indiceCor = 0;
 
   // Limpa o controle de ocupação (conflitos)
   celulasOcupadas = {};
