@@ -48,4 +48,4 @@ Durante o desenvolvimento, foquei em resolver problemas reais de arquitetura fro
    git clone [https://github.com/SEU_USUARIO/NOME_DO_REPO.git](https://github.com/SEU_USUARIO/NOME_DO_REPO.git)
    ```
 2. Instale a extensão **Live Server** ou equivalente:
-   Por segurança, navegadores modernos bloqueiam funcionalidades como o **fetch**, usado nesse projeto ao abrir
+   Por segurança, navegadores modernos bloqueiam funcionalidades como o **fetch** usado nesse projeto ao abrir o index como file. Para seu desempenho esperado, é necessária uma ferramenta que simule uma hospedagem desse.

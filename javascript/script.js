@@ -168,7 +168,7 @@ function renderizarCursosNoModal(filtro) {
 
   // Logica de filtragem e construcao do card
   nomesCursos
-    .filter((nome) => nome.toLowerCase().startsWith(filtro))
+    .filter((nome) => nome.toLowerCase().includes(filtro))
     .forEach((nome) => {
       const card = document.createElement("div");
       card.className = "card-curso";
@@ -619,7 +619,7 @@ inputMateria.addEventListener("input", (e) => {
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
 
-    return nomeNormalizado.startsWith(termoNormalizado); // Retorna true ou false para o filter
+    return nomeNormalizado.includes(termoNormalizado); // Retorna true ou false para o filter
   });
 
   renderizarResultadosBusca(filtradas);
